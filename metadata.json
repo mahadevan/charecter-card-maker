@@ -1,0 +1,5 @@
+{
+  "name": "AI Character Card Creator",
+  "description": "A tool to create and edit character cards for AI roleplay LLMs. Embed character data directly into a PNG image file for easy sharing and distribution.",
+  "requestFramePermissions": []
+}
