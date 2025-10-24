@@ -169,13 +169,72 @@ const App: React.FC = () => {
     URL.revokeObjectURL(url);
   };
 
+  const formatLorebookForExport = (lorebook: Lorebook): any => {
+    const formattedEntries: Record<string, any> = {};
+
+    lorebook.entries.forEach((entry, index) => {
+      const uid = entry.uid || index + 1;
+      
+      formattedEntries[uid] = {
+        uid: uid,
+        key: entry.key,
+        keysecondary: entry.keysecondary || entry.secondary_keys || [],
+        comment: entry.comment || '',
+        content: entry.content,
+        constant: entry.constant || false,
+        selective: entry.selective || false,
+        selectiveLogic: entry.selectiveLogic || 0,
+        order: entry.insertion_order || 10,
+        position: entry.position || 'before_char',
+        disable: !entry.enabled,
+        addMemo: entry.addMemo !== undefined ? entry.addMemo : true,
+        excludeRecursion: entry.excludeRecursion !== undefined ? entry.excludeRecursion : true,
+        probability: entry.probability || 100,
+        useProbability: entry.useProbability !== undefined ? entry.useProbability : true,
+        
+        // Legacy/duplicate fields for compatibility
+        id: entry.id,
+        priority: entry.insertion_order || 10,
+        insertion_order: entry.insertion_order,
+        enabled: entry.enabled,
+        name: entry.name || `Entry ${uid}`,
+        
+        extensions: entry.extensions || {
+          depth: 4,
+          weight: 10,
+          addMemo: true,
+          probability: 100,
+          displayIndex: index,
+          selectiveLogic: 0,
+          useProbability: true,
+          characterFilter: null,
+          excludeRecursion: true,
+        },
+        case_sensitive: entry.case_sensitive || false,
+        depth: 4, // Common default
+        characterFilter: null, // Common default
+      };
+    });
+
+    return {
+      name: lorebook.name || '',
+      description: lorebook.description || '',
+      scan_depth: lorebook.scan_depth || 4,
+      token_budget: lorebook.token_budget || 1024,
+      recursive_scanning: lorebook.recursive_scanning || false,
+      extensions: lorebook.extensions || {},
+      entries: formattedEntries,
+    };
+  };
+
   const handleExportLorebook = () => {
     if (lorebook.entries.length === 0) {
       alert("No lorebook entries to export.");
       return;
     }
     
-    const jsonString = JSON.stringify(lorebook, null, 2);
+    const formattedLorebook = formatLorebookForExport(lorebook);
+    const jsonString = JSON.stringify(formattedLorebook, null, 2);
     const blob = new Blob([jsonString], { type: 'application/json' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');

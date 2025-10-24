@@ -57,15 +57,15 @@ const LorebookManager: React.FC<LorebookManagerProps> = ({ lorebook, onLorebookC
 
   const handleAddEntry = () => {
     const newEntry: LorebookEntry = {
-      id: Date.now(),
-      keys: [],
-      content: '',
-      enabled: true,
-      insertion_order: lorebook.entries.length,
-      use_regex: false,
-      constant: false,
-      case_sensitive: false,
-    };
+    id: Date.now(),
+    uid: lorebook.entries.length + 1,
+    key: [],
+    content: '',
+    enabled: true,
+    insertion_order: lorebook.entries.length,
+    constant: false,
+    case_sensitive: false,
+  };
     onLorebookChange({
       ...lorebook,
       entries: [...lorebook.entries, newEntry],
@@ -258,8 +258,8 @@ const LorebookManager: React.FC<LorebookManagerProps> = ({ lorebook, onLorebookC
                       </label>
                       <input
                         type="text"
-                        value={entry.keys.join(', ')}
-                        onChange={(e) => handleEntryChange(entry.id, 'keys', e.target.value.split(',').map(k => k.trim()).filter(Boolean))}
+                        value={entry.key.join(', ')}
+                        onChange={(e) => handleEntryChange(entry.id, 'key', e.target.value.split(',').map(k => k.trim()).filter(Boolean))}
                         placeholder="trigger, keywords, phrases"
                         className={`w-full p-2 border rounded-md shadow-sm text-sm ${inputClasses}`}
                       />
@@ -284,8 +284,8 @@ const LorebookManager: React.FC<LorebookManagerProps> = ({ lorebook, onLorebookC
                       </label>
                       <input
                         type="text"
-                        value={(entry.secondary_keys || []).join(', ')}
-                        onChange={(e) => handleEntryChange(entry.id, 'secondary_keys', e.target.value.split(',').map(k => k.trim()).filter(Boolean))}
+                        value={(entry.keysecondary || []).join(', ')}
+                        onChange={(e) => handleEntryChange(entry.id, 'keysecondary', e.target.value.split(',').map(k => k.trim()).filter(Boolean))}
                         placeholder="optional, secondary, triggers"
                         className={`w-full p-2 border rounded-md shadow-sm text-sm ${inputClasses}`}
                       />
