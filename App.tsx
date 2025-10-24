@@ -5,7 +5,6 @@ import CharacterForm from './components/CharacterForm';
 import LorebookManager from './components/LorebookManager';
 import Footer from './components/Footer';
 import { CharacterCard, CharacterImage, Lorebook } from './types';
-import { generatePlaceholder } from './services/placeholderService';
 import { extractDataFromPng, embedDataInPng } from './services/pngService';
 
 const initialCharacterCard: CharacterCard = {
@@ -59,21 +58,6 @@ const App: React.FC = () => {
     });
   }, []);
   
-  const regeneratePlaceholder = useCallback(async (name: string) => {
-      const placeholder = await generatePlaceholder(name, theme);
-      if (placeholder) {
-        handleImageChange(placeholder);
-      }
-  }, [theme, handleImageChange]);
-
-  useEffect(() => {
-    const isPlaceholderActive = !characterImage.file || characterImage.file.name === 'placeholder.png';
-    if (isPlaceholderActive) {
-      if (isDirty || characterCard.name === '') {
-        regeneratePlaceholder(characterCard.name);
-      }
-    }
-  }, [characterCard.name, theme, isDirty, regeneratePlaceholder]);
 
 
   const handleCardChange = (newCardData: Partial<CharacterCard>) => {
@@ -115,7 +99,7 @@ const App: React.FC = () => {
   const handleReset = () => {
     setCharacterCard(initialCharacterCard);
     setLorebook(initialLorebook);
-    regeneratePlaceholder('');
+    setCharacterImage({ file: null, objectURL: null });
     setIsDirty(false);
   };
 
