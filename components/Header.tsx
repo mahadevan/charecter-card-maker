@@ -12,16 +12,14 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
     setTheme(theme === 'light' ? 'dark' : 'light');
   };
 
-  const headerClasses = theme === 'light' ? 'bg-neutral-200' : 'bg-neutral-800';
+  const headerClasses = theme === 'light'
+    ? 'bg-gradient-to-r from-gray-100 to-gray-200'
+    : 'bg-gradient-to-r from-gray-800 to-gray-900';
   const titleClasses = theme === 'light' ? 'text-neutral-900' : 'text-neutral-100';
   const subtitleClasses = theme === 'light' ? 'text-neutral-600' : 'text-neutral-400';
-  const buttonClasses = theme === 'light' 
-    ? 'text-neutral-600 hover:bg-neutral-300 focus:ring-offset-neutral-200' 
+  const buttonClasses = theme === 'light'
+    ? 'text-neutral-600 hover:bg-neutral-300 focus:ring-offset-neutral-200'
     : 'text-neutral-400 hover:bg-neutral-700 focus:ring-offset-neutral-800';
-
-  const textShadowStyle = theme === 'light'
-    ? { textShadow: '-1px -1px 1px rgba(255,255,255,0.8), 1px 1px 1px rgba(0,0,0,0.2)' }
-    : { textShadow: '-1px -1px 1px rgba(0,0,0,0.4), 1px 1px 1px rgba(255,255,255,0.1)' };
 
   return (
     <header className={`${headerClasses} shadow-md`}>
@@ -29,12 +27,12 @@ const Header: React.FC<HeaderProps> = ({ theme, setTheme }) => {
         <div className="flex-1"></div>
         <div className="flex-1 text-center">
             <h1
-              className={`text-3xl font-bold ${titleClasses} tracking-wider`}
-              style={{ fontFamily: 'cursive', ...textShadowStyle }}
+              className={`text-3xl md:text-4xl font-bold ${titleClasses} tracking-wider md:tracking-widest drop-shadow-md`}
+              style={{ fontFamily: "'Segoe UI', Tahoma, Geneva, Verdana, sans-serif'" }}
             >
               Character Card Creator
             </h1>
-            <p className={`${subtitleClasses} mt-1 italic tracking-widest`}>
+            <p className={`${subtitleClasses} mt-1 tracking-widest`}>
               Create and embed character data within PNG images.
             </p>
         </div>
