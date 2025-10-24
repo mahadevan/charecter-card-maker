@@ -67,7 +67,7 @@ const ImageHandler: React.FC<ImageHandlerProps> = ({ characterImage, characterNa
   const versionTextClasses = theme === 'light' ? 'text-neutral-500' : 'text-neutral-400';
 
   return (
-    <div className={`${containerClasses} p-4 rounded-lg shadow-lg flex flex-col items-center justify-center`}>
+    <div className={`${containerClasses} p-4 rounded-lg flex flex-col items-center justify-center`}>
       <input
         type="file"
         ref={fileInputRef}
@@ -84,11 +84,7 @@ const ImageHandler: React.FC<ImageHandlerProps> = ({ characterImage, characterNa
         {characterImage.objectURL ? (
           <img src={characterImage.objectURL} alt="Character" className="max-w-full max-h-full object-contain rounded-md" />
         ) : (
-          <div className={`text-center ${textClasses}`}>
-            <UploadCloudIcon className="w-16 h-16 mx-auto mb-4" />
-            <p className="font-semibold">Click to upload or drag & drop</p>
-            <p className="text-sm">PNG image required</p>
-          </div>
+          <UploadCloudIcon className={`w-24 h-24 ${textClasses}`} />
         )}
       </div>
       {characterName && (

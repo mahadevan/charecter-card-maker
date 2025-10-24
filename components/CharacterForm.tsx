@@ -65,8 +65,8 @@ const CharacterForm: React.FC<CharacterFormProps> = ({
   };
   
   const containerClasses = theme === 'light' ? 'bg-white' : 'bg-neutral-800';
-  const inputClasses = `font-readex-pro ${theme === 'light' 
-    ? 'bg-neutral-100 border-neutral-300 focus:ring-blue-500 focus:border-blue-500' 
+  const inputClasses = ` ${theme === 'light'
+    ? 'bg-neutral-100 border-neutral-300 focus:ring-blue-500 focus:border-blue-500'
     : 'bg-neutral-700 border-neutral-600 text-white focus:ring-blue-500 focus:border-blue-500'}`;
   const labelClasses = theme === 'light' ? 'text-neutral-700' : 'text-neutral-300';
   const buttonClasses = theme === 'light'
