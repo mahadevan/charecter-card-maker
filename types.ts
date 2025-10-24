@@ -1,3 +1,30 @@
+export interface LorebookEntry {
+  id: number | string;
+  keys: string[];
+  content: string;
+  enabled: boolean;
+  insertion_order: number;
+  use_regex: boolean;
+  constant?: boolean;
+  case_sensitive?: boolean;
+  name?: string;
+  priority?: number;
+  comment?: string;
+  selective?: boolean;
+  secondary_keys?: string[];
+  position?: 'before_char' | 'after_char';
+  extensions?: Record<string, any>;
+}
+
+export interface Lorebook {
+  name?: string;
+  description?: string;
+  scan_depth?: number;
+  token_budget?: number;
+  recursive_scanning?: boolean;
+  entries: LorebookEntry[];
+  extensions?: Record<string, any>;
+}
 
 export interface CharacterCard {
   name: string;
@@ -13,6 +40,7 @@ export interface CharacterCard {
   tags?: string[];
   creator?: string;
   character_version?: string;
+  character_book?: Lorebook;
 }
 
 export interface CharacterImage {
